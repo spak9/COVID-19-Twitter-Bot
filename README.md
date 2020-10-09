@@ -29,3 +29,4 @@ talk about basic things
 
     This link has some more information for pulling and collaborating
     https://medium.com/@jonathanmines/the-ultimate-github-collaboration-guide-df816e98fb67
+    https://www.notion.so/Introduction-to-GitHub-202af6f64bbd4299b15f238dcd09d2a7
