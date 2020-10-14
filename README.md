@@ -21,6 +21,8 @@ talk about basic things
     go is as follows:
     - As a collaborator, you want to clone the repository
     - create a virtual environment in that directory
+        - `python3 -m venv ./venv` creates a virtual environment
+        - `source ./venv/bin/activate` activates the virtual environment
     - after activating the virtual env, you can either install Tweepy via
         pip yourself, or use
         `pip install -r requirements.txt`
