@@ -3,23 +3,25 @@ from datetime import date
 import data
 import tweepy
 
-""" Tweeter represents an object that has it's own
-    Tweepy api and is given the ability to tweet
-    given that api and some tweet (string) """
-class Tweeter():
 
-    """ create_api comes from config.py and creates an api object """
+class Tweeter():
+    """ Tweeter represents an object that has it's own
+        Tweepy api and is given the ability to tweet
+        given that api and some tweet (string) """
+
     def __init__(self):
+        """ create_api comes from config.py and creates an api object """
         self.api = create_api();
 
-    """ Uses 'update_status' from tweepy to tweet """
     def tweet(self, tweet=''):
+        """ Uses 'update_status' from tweepy to tweet """
         self.api.update_status(tweet)
 
-""" A main() that can be used as a script to tweet either
-    1. new cases & total cases of a given day
-    2. total cases of the most recent updated day """
+
 def main():
+    """ A main() that can be used as a script to tweet either
+        1. new cases & total cases of a given day
+        2. total cases of the most recent updated day """
     tweeter = Tweeter()
     # a dict of covid data with "MM/-D/YY" as keys
     covid_data = data.get_data()
