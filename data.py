@@ -26,13 +26,16 @@ def parse_row(row):
     return result
 
 
-def main():
+def get_data():
     response = requests.get(url)
     reader = csv.DictReader(response.text.splitlines())
+    covid_data = {}
     for row in reader:
         if row['County Name'] == county:
-            print(json.dumps(parse_row(row)))
+            covid_data = parse_row(row)
+            print(json.dumps(covid_data))
             break
+    return covid_data
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
