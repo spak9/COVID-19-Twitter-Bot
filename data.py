@@ -37,5 +37,5 @@ def get_data():
             break
     return covid_data
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
