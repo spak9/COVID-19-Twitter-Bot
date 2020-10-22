@@ -38,4 +38,4 @@ def get_data():
     return covid_data
 
 if __name__ == '__main__':
-    main()
+    get_data()
