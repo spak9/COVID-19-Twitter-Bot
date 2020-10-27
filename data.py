@@ -3,7 +3,6 @@ import csv
 import json
 from datetime import date, timedelta
 
-county = 'Fairfax County'
 url = 'https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_confirmed_usafacts.csv'
 
 past_week_dates = [(date.today() - timedelta(days=t)) for t in range(2, 10)]
@@ -26,15 +25,17 @@ def parse_row(row):
     return result
 
 
-def get_data():
+def get_data(county='Fairfax County'):
     response = requests.get(url)
     reader = csv.DictReader(response.text.splitlines())
     covid_data = {}
     for row in reader:
+        # if county exists in the data
         if row['County Name'] == county:
             covid_data = parse_row(row)
             print(json.dumps(covid_data))
             break
+        # else it doesn't; will return an empty dictionary
     return covid_data
 
 if __name__ == '__main__':
