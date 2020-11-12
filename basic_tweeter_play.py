@@ -4,6 +4,7 @@ import data
 import tweepy
 import matplotlib.pyplot as plt 
 
+
 class Tweeter():
     """ Tweeter represents an object that has it's own
         Tweepy api and is given the ability to tweet
@@ -23,9 +24,21 @@ def main():
         1. new cases & total cases of a given day
         2. total cases of the most recent updated day """
     tweeter = Tweeter()
+    
+    #plotting of new cases
+    
     # a dict of covid data with "MM/-D/YY" as keys
     covid_data = data.get_data()
     
+    
+    #resizing the figure
+    fig_size = plt.rcParams["figure.figsize"]
+    fig_size[0] = 20
+    fig_size[1] = 10
+    plt.rcParams["figure.figsize"] = fig_size
+    
+    
+    #plotting of new cases
     # get inner keys
     inner_keys = list(covid_data.values())[0].keys()
 
@@ -36,11 +49,26 @@ def main():
     for x in inner_keys:
         # create a list of values for inner key
         y_axis_values = [v[x] for v in covid_data.values()]
+  
 
-    # plot each inner key
-    plt.plot(x_axis_values, y_axis_values, label=x)
+    #plotting of known cases
+    inner_keys2=sorted(list(covid_data.values())[0].keys(), reverse=True)
+       
+    # loop through inner_keys
+    for z in inner_keys2:
+        # create a list of values for inner key
+        y_axis_values2 = [v[z] for v in covid_data.values()]
 
+    #creating separate plots for new cases and known cases and saving the figs in directory.
+    plt.subplot(2,2,1)
+    plt.plot(x_axis_values, y_axis_values, 'b*-')
+    plt.subplot(2,2,2)
+    plt.plot(x_axis_values, y_axis_values2, 'y--')
+    plt.savefig("cases.png")
+    
     plt.legend()
+    
+    
     
 
 if __name__ == '__main__':
