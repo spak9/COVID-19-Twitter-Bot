@@ -106,7 +106,7 @@ def mention_reply(tweeter, since_id, i):
                     status=f'Sorry, either county does not exist or reply was misformatted. Is it in the format: County_name County?',
                     in_reply_to_status_id=tweet.id
                 )
-                return since_id
+                return new_since_id
 
             # check if there is data for today
             if today in covid_data:
