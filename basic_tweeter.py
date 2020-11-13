@@ -1,5 +1,6 @@
 from config import create_api
 from datetime import date
+import matplotlib.pyplot as plt
 import data
 import tweepy
 import time
@@ -24,28 +25,12 @@ def main():
         and every hour to tweet basic metrics solely on 'Fairfax County' """
 
     tweeter = Tweeter()
+    county = 'Fairfax County'
     # a basic counter to make sure that our tweets are all 'unique'
     i = 1
-    # an hour counter to tweet 'Fairfax County' metric every hour
-    hour_keeper = 1
-    # every tweet has a unique tweet id
-    since_id = 1
-    county = 'Fairfax County'
 
     # 1st loop is for hourly tweeting
     while True:
-        # 2nd loop is to listen every minute for new replies
-        while True:
-            since_id = mention_reply(tweeter, since_id, i)
-            print('since_id', since_id)
-            hour_keeper += 1
-            # if we reach an hour, reset
-            if (hour_keeper == 60):
-                hour_keeper = 1
-                break
-            else: time.sleep(60)
-            i += 1
-        # a dict of covid data with "MM/-D/YY" as keys
         covid_data = data.get_data()
         today = date.today().strftime("%-m/%-d/%y")
 
@@ -53,23 +38,32 @@ def main():
         if today in covid_data:
             new_cases_today = covid_data[today]['new_cases']
             known_cases = covid_data[today]['known_cases']
-            tweeter.tweet(
-                f'{today}: New COVID-19 Cases in {county}: {new_cases_today}\n'
+            get_graph(covid_data)
+            media = tweeter.api.media_upload('cases.png')
+            tweeter.api.update_status(
+                status=f'{today}: New COVID-19 Cases in {county}: {new_cases_today}\n'
                 f'Total COVID-19 Cases in Fairfax County: {known_cases}\n'
-                f'{i}/24')
+                f'{i}/24',
+                media_ids=[media.media_id])
             print('Tweet Successful')
         # old data
         else:
             today = list(covid_data.keys())[0]
             known_cases = covid_data[today]['known_cases']
-            tweeter.tweet(f'{today}: Total COVID-19 Cases in {county}: {known_cases}\n'
-                f'{i}/24')
+            get_graph(covid_data)
+            media = tweeter.api.media_upload('cases.png')
+            tweeter.api.update_status(
+                status=f'{today}: Total COVID-19 Cases in {county}: {known_cases}\n'
+                f'{i}/24',
+                media_ids=[media.media_id])
             print('Tweet Successful')
 
         # some counter to make sure we don't repeat tweets --> error
+        time.sleep(3600)
         i = i + 1
-        if (i > 1440): i = 1
+        if (i > 24): i = 1
 
+# Not implemented in bot
 def mention_reply(tweeter, since_id, i):
     """ 'mention_reply' will check our twitter account for specific replies of
     the form: 'County_name County' and if the reply passes, reply back with
@@ -116,6 +110,8 @@ def mention_reply(tweeter, since_id, i):
                     status=f'{today}: New COVID-19 Cases in {county}: {new_cases_today}\n'
                     f'Total COVID-19 Cases in {county}: {known_cases}. {i}/1440\n',
                     in_reply_to_status_id=tweet.id)
+                # call get_graph
+                get_graph(covid_data)
                 print('Tweet Successful')
             # old data
             else:
@@ -124,9 +120,49 @@ def mention_reply(tweeter, since_id, i):
                 tweeter.api.update_status(
                 status=f'{today}: Total COVID-19 Cases in {county}: {known_cases}. {i}/1440\n',
                 in_reply_to_status_id=tweet.id)
+                # call get_graph
+                get_graph(covid_data)
                 print('Tweet Successful')
 
         return new_since_id
+
+def get_graph(covid_data):
+    #resizing the figure
+    fig_size = plt.rcParams["figure.figsize"]
+    fig_size[0] = 20
+    fig_size[1] = 10
+    plt.rcParams["figure.figsize"] = fig_size
+
+
+    #plotting of new cases
+    # get inner keys
+    inner_keys = list(covid_data.values())[0].keys()
+
+    # x-axis is the outer keys
+    x_axis_values = list(map(str, covid_data.keys()))
+
+    # loop through inner_keys
+    for x in inner_keys:
+        # create a list of values for inner key
+        y_axis_values = [v[x] for v in covid_data.values()]
+
+
+    #plotting of known cases
+    inner_keys2=sorted(list(covid_data.values())[0].keys(), reverse=True)
+
+    # loop through inner_keys
+    for z in inner_keys2:
+        # create a list of values for inner key
+        y_axis_values2 = [v[z] for v in covid_data.values()]
+
+    #creating separate plots for new cases and known cases and saving the figs in directory.
+    plt.subplot(2,2,1)
+    plt.plot(x_axis_values, y_axis_values, 'b*-')
+    plt.subplot(2,2,2)
+    plt.plot(x_axis_values, y_axis_values2, 'y--')
+    plt.savefig("cases.png")
+
+    plt.legend()
 
 
 if __name__ == '__main__':
