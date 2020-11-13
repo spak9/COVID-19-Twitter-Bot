@@ -57,10 +57,10 @@ def main():
     #creating separate plots for new cases and known cases and saving the figs in directory.
     plt.subplot(2,2,1)
     plt.plot(x_axis_values, y_axis_values, 'b*-')
-    plt.title("known cases")
+    plt.title("new cases")
     plt.subplot(2,2,2)
     plt.plot(x_axis_values, y_axis_values2, 'y--')
-    plt.title("new cases")
+    plt.title("known cases")
     plt.savefig("cases.png")
 
 
