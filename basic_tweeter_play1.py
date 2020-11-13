@@ -55,12 +55,18 @@ def main():
         y_axis_values2 = [v[z] for v in covid_data.values()]
 
     #creating separate plots for new cases and known cases and saving the figs in directory.
-    plt.subplot(2,2,1)
-    plt.plot(x_axis_values, y_axis_values, 'b*-')
-    plt.title("new cases")
+
     plt.subplot(2,2,2)
     plt.plot(x_axis_values, y_axis_values2, 'y--')
+    az=plt.gca()
+    az.invert_xaxis()
     plt.title("known cases")
+    
+    plt.subplot(2,2,1)
+    plt.plot(x_axis_values, y_axis_values, 'b*-')
+    ax=plt.gca()
+    ax.invert_xaxis()
+    plt.title("new cases")
     plt.savefig("cases.png")
 
 
