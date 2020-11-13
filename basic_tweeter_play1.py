@@ -23,8 +23,6 @@ def main():
     """ A main() that can be used as a script to tweet either
         1. new cases & total cases of a given day
         2. total cases of the most recent updated day """
-    tweeter = Tweeter()
-    
     
     # a dict of covid data with "MM/-D/YY" as keys
     covid_data = data.get_data()
