@@ -11,6 +11,18 @@ class Tweeter():
         Tweepy api and is given the ability to tweet
         given that api and some tweet (string) """
 
+    # a class variable to hold the list of 24 counties in Virginia
+    counties = [
+        'Accomack County', 'Albemarle County', 'Alleghany County',
+        'Amelia County', 'Amherst County', 'Appomattox County',
+        'Appomattox County', 'Augusta County', 'Bath County',
+        'Bedford County', 'Bland County', 'Botetourt County',
+        'Brunswick County', 'Buchanan County', 'Buckingham County',
+        'Campbell County', 'Caroline County', 'Carroll County',
+        'Charles City County', 'Charlotte County', 'Fairfax County',
+        'Essex County', 'Halifax County', 'Henrico County'
+    ]
+
     def __init__(self):
         """ create_api comes from config.py and creates an api object """
         self.api = create_api();
@@ -27,11 +39,13 @@ def main():
     tweeter = Tweeter()
     county = 'Fairfax County'
     # a basic counter to make sure that our tweets are all 'unique'
-    i = 1
+    i = 0
 
     # 1st loop is for hourly tweeting
     while True:
-        covid_data = data.get_data()
+        # iterate through 24 counties
+        county = counties[i]
+        covid_data = data.get_data(county=county)
         today = date.today().strftime("%-m/%-d/%y")
 
         # check if there is data for today
@@ -61,7 +75,8 @@ def main():
         # some counter to make sure we don't repeat tweets --> error
         time.sleep(3600)
         i = i + 1
-        if (i > 24): i = 1
+        # once we hit the 24 counties, reset it
+        if (i > 23): i = 0
 
 # Not implemented in bot
 def mention_reply(tweeter, since_id, i):
@@ -127,7 +142,7 @@ def mention_reply(tweeter, since_id, i):
         return new_since_id
 
 def get_graph(covid_data):
-    
+
     #resizing the figure
     fig_size = plt.rcParams["figure.figsize"]
     fig_size[0] = 20
