@@ -127,6 +127,7 @@ def mention_reply(tweeter, since_id, i):
         return new_since_id
 
 def get_graph(covid_data):
+    
     #resizing the figure
     fig_size = plt.rcParams["figure.figsize"]
     fig_size[0] = 20
@@ -134,8 +135,7 @@ def get_graph(covid_data):
     plt.rcParams["figure.figsize"] = fig_size
 
 
-    #plotting of new cases
-    # get inner keys
+    # get inner keys of new cases
     inner_keys = list(covid_data.values())[0].keys()
 
     # x-axis is the outer keys
@@ -147,7 +147,7 @@ def get_graph(covid_data):
         y_axis_values = [v[x] for v in covid_data.values()]
 
 
-    #plotting of known cases
+    #get inner keys of known cases
     inner_keys2=sorted(list(covid_data.values())[0].keys(), reverse=True)
 
     # loop through inner_keys
@@ -156,13 +156,19 @@ def get_graph(covid_data):
         y_axis_values2 = [v[z] for v in covid_data.values()]
 
     #creating separate plots for new cases and known cases and saving the figs in directory.
-    plt.subplot(2,2,1)
-    plt.plot(x_axis_values, y_axis_values, 'b*-')
+
     plt.subplot(2,2,2)
     plt.plot(x_axis_values, y_axis_values2, 'y--')
-    plt.savefig("cases.png")
+    az=plt.gca()
+    az.invert_xaxis()
+    plt.title("known cases")
 
-    plt.legend()
+    plt.subplot(2,2,1)
+    plt.plot(x_axis_values, y_axis_values, 'b*-')
+    ax=plt.gca()
+    ax.invert_xaxis()
+    plt.title("new cases")
+    plt.savefig("cases.png")
 
 
 if __name__ == '__main__':
