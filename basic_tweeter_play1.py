@@ -30,7 +30,7 @@ def main():
     #resizing the figure
     fig_size = plt.rcParams["figure.figsize"]
     fig_size[0] = 20
-    fig_size[1] = 10
+    fig_size[1] = 20
     plt.rcParams["figure.figsize"] = fig_size
     
 
@@ -55,7 +55,6 @@ def main():
         y_axis_values2 = [v[z] for v in covid_data.values()]
 
     #creating separate plots for new cases and known cases and saving the figs in directory.
-
     plt.subplot(2,2,2)
     plt.plot(x_axis_values, y_axis_values2, 'y--')
     az=plt.gca()
@@ -68,8 +67,7 @@ def main():
     ax.invert_xaxis()
     plt.title("new cases")
     plt.savefig("cases.png")
-
-
+    
 if __name__ == '__main__':
     main()  
 
