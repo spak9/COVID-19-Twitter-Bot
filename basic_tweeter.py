@@ -44,7 +44,7 @@ def main():
     # 1st loop is for hourly tweeting
     while True:
         # iterate through 24 counties
-        county = counties[i]
+        county = tweeter.counties[i]
         covid_data = data.get_data(county=county)
         today = date.today().strftime("%-m/%-d/%y")
 
