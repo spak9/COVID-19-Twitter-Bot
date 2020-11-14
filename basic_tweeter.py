@@ -52,8 +52,8 @@ def main():
         if today in covid_data:
             new_cases_today = covid_data[today]['new_cases']
             known_cases = covid_data[today]['known_cases']
-            get_graph(covid_data)
-            media = tweeter.api.media_upload('cases.png')
+            get_graph(covid_data, i)
+            media = tweeter.api.media_upload(f'case_{i}.png')
             tweeter.api.update_status(
                 status=f'{today}: New COVID-19 Cases in {county}: {new_cases_today}\n'
                 f'Total COVID-19 Cases in Fairfax County: {known_cases}\n'
@@ -64,8 +64,8 @@ def main():
         else:
             today = list(covid_data.keys())[0]
             known_cases = covid_data[today]['known_cases']
-            get_graph(covid_data)
-            media = tweeter.api.media_upload('cases.png')
+            get_graph(covid_data, i)
+            media = tweeter.api.media_upload(f'case_{i}.png')
             tweeter.api.update_status(
                 status=f'{today}: Total COVID-19 Cases in {county}: {known_cases}\n'
                 f'{i}/24',
@@ -141,12 +141,12 @@ def mention_reply(tweeter, since_id, i):
 
         return new_since_id
 
-def get_graph(covid_data):
+def get_graph(covid_data, i):
 
     #resizing the figure
     fig_size = plt.rcParams["figure.figsize"]
     fig_size[0] = 20
-    fig_size[1] = 10
+    fig_size[1] = 20
     plt.rcParams["figure.figsize"] = fig_size
 
 
@@ -171,7 +171,6 @@ def get_graph(covid_data):
         y_axis_values2 = [v[z] for v in covid_data.values()]
 
     #creating separate plots for new cases and known cases and saving the figs in directory.
-
     plt.subplot(2,2,2)
     plt.plot(x_axis_values, y_axis_values2, 'y--')
     az=plt.gca()
@@ -183,7 +182,7 @@ def get_graph(covid_data):
     ax=plt.gca()
     ax.invert_xaxis()
     plt.title("new cases")
-    plt.savefig("cases.png")
+    plt.savefig(f'case_{i}')
 
 
 if __name__ == '__main__':
