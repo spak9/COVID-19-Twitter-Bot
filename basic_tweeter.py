@@ -151,22 +151,22 @@ def get_graph(covid_data, i):
 
 
     # get inner keys of new cases
-    inner_keys = list(covid_data.values())[0].keys()
+    new_cases_keys = list(covid_data.values())[0].keys()
 
     # x-axis is the outer keys
     x_axis_values = list(map(str, covid_data.keys()))
 
     # loop through inner_keys
-    for x in inner_keys:
+    for x in new_cases_keys:
         # create a list of values for inner key
         y_axis_values = [v[x] for v in covid_data.values()]
 
 
     #get inner keys of known cases
-    inner_keys2=sorted(list(covid_data.values())[0].keys(), reverse=True)
+    known_cases_keys=sorted(list(covid_data.values())[0].keys(), reverse=True)
 
     # loop through inner_keys
-    for z in inner_keys2:
+    for z in known_cases_keys:
         # create a list of values for inner key
         y_axis_values2 = [v[z] for v in covid_data.values()]
 
