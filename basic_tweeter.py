@@ -145,8 +145,8 @@ def get_graph(covid_data, i):
 
     #resizing the figure
     fig_size = plt.rcParams["figure.figsize"]
-    fig_size[0] = 20
-    fig_size[1] = 20
+    fig_size[0] = 15
+    fig_size[1] = 14
     plt.rcParams["figure.figsize"] = fig_size
 
 
