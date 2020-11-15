@@ -2,6 +2,7 @@ from config import create_api
 from datetime import date
 import matplotlib.pyplot as plt
 import data
+import os
 import tweepy
 import time
 
@@ -60,6 +61,9 @@ def main():
                 f'{i}/24',
                 media_ids=[media.media_id])
             print('Tweet Successful')
+            if (os.path.exists(f'case_{i}.png')):
+                os.remove(f'case_{i}.png')
+                print('removal successful')
         # old data
         else:
             today = list(covid_data.keys())[0]
@@ -71,6 +75,9 @@ def main():
                 f'{i}/24',
                 media_ids=[media.media_id])
             print('Tweet Successful')
+            if (os.path.exists(f'case_{i}.png')):
+                os.remove(f'case_{i}.png')
+                print('removal successful')
 
         # some counter to make sure we don't repeat tweets --> error
         time.sleep(3600)
