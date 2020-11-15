@@ -61,6 +61,8 @@ def main():
                 f'{i}/24',
                 media_ids=[media.media_id])
             print('Tweet Successful')
+            # clear the figure
+            plt.clf()
             if (os.path.exists(f'case_{i}.png')):
                 os.remove(f'case_{i}.png')
                 print('removal successful')
@@ -75,6 +77,8 @@ def main():
                 f'{i}/24',
                 media_ids=[media.media_id])
             print('Tweet Successful')
+            # clear the figure
+            plt.clf()
             if (os.path.exists(f'case_{i}.png')):
                 os.remove(f'case_{i}.png')
                 print('removal successful')
