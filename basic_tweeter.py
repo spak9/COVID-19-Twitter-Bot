@@ -182,7 +182,7 @@ def get_graph(covid_data, i):
     ax=plt.gca()
     ax.invert_xaxis()
     plt.title("new cases")
-    plt.savefig(f'case_{i}')
+    plt.savefig(f'case_{i}.png')
 
 
 if __name__ == '__main__':
