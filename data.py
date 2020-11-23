@@ -33,7 +33,7 @@ def get_data(county='Fairfax County'):
         # if county exists in the data
         if row['County Name'] == county:
             covid_data = parse_row(row)
-            print(json.dumps(covid_data))
+            # print(json.dumps(covid_data))
             break
         # else it doesn't; will return an empty dictionary
     return covid_data
