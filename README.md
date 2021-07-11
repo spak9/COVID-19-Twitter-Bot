@@ -1,8 +1,6 @@
 # COVID_Updater
 
-Eventually we'll update the readme to be in the right
-format, but for now, it'll just be a way for us to
-talk about basic things
+A few things to note about using GitHub collaboratively.
 
 1. Firstly, I think it's a good idea to use virtual environments
     because it's good practice for every python project
