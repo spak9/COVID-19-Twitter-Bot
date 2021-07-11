@@ -1,6 +1,6 @@
 # COVID_Updater
 
-A few things to note about using GitHub collaboratively.
+A few things to note about using GitHub collaboratively:
 
 1. Firstly, I think it's a good idea to use virtual environments
     because it's good practice for every python project
