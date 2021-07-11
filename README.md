@@ -14,9 +14,7 @@ A few things to note about using GitHub collaboratively:
     only your project's site directories, but it won't interfere with other
     site directories: System-wide vs. Project-wide
 
-2. Secondly, I'm not too hip to Git and GitHub so I'm not exactly sure
-    how the virtual environment plays into that, but I think the way to
-    go is as follows:
+2. Secondly, a few things about Virtual environments:
     - As a collaborator, you want to clone the repository
     - create a virtual environment in that directory
         - `python3 -m venv ./venv` creates a virtual environment
