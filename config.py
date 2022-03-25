@@ -1,4 +1,4 @@
-# a configuration file to bootstraps the creation of
+# a configuration file to bootstrap the creation of
 # a Tweepy.API object
 
 import tweepy
